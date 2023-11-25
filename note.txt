@@ -1,0 +1,9 @@
+
+1. belum ada middlewares
+2. controllers
+3. ketika nama user sama maka data tidak bisa di res.send
+	- ketika role berbeda harusnya tidak masalah
+5. routes ?
+6. res.error yang kurang rapi dan masih belum sesuai
+7. JWT
+8. simpan di cookies/session storage/local storage
