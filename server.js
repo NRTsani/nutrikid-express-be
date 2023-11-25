@@ -2,14 +2,21 @@ const bluebird = require('bluebird');
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const port = 5001
+
+
+//
+const apiError = require("./utils/Error/apiError");
+const { globalErrHandler } = require("./utils/Error/globalErrHandle");
+
+// access environment variables
 require('dotenv').config();
 
-// import libraries
+// import utils
 const respond = require('./libraries/respond');
 const logger = require('./libraries/logger');
 
 // import API Routes
+
 
 // db start & configs
 try {
@@ -47,30 +54,43 @@ try {
     throw err;
 }
 
-// app
+// app middleware
 const app = express();
-app.use(express.static('public'));
+// app.use(express.static('public'));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
-app.use(cors());
+// app.use(express.urlencoded({extended: false}));
+// app.use(cors());
+
+//Set Routes
+const userRouters = require("./domains/users/v1/api");
+const authRouters = require("./domains/auth/v1/api");
+const categoryRouters = require("./domains/category/v1/api");
+const postRouters = require("./domains/post/v1/api");
+const commentRouters = require("./domains/comment/v1/api")
+
+app.use("/api/users", userRouters);
+app.use("/api/auth", authRouters);
+app.use("/api/categories", categoryRouters);
+app.use("/api/posts", postRouters);
+app.use("/api/comments", commentRouters);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    logger.info("NOT FOUND!");
-    respond.responseNotFound(res);
-});
+app.all("*", (req, res, next) => {
+    // create error
+    const err = new apiError(`Can't find this route ${req.originalUrl}`, 400);
+    // send it to Global errors handling middlware
+    next(err);
+  });
+
 
 // error handler
-app.use(function (err, req, res, next) {
-    logger.info(err);
-    respond.responseError(res);
-});
+app.use(globalErrHandler);
 
 // finalize
 module.exports = app;
 
 // listen
-
+const port = process.env.PORT || 3001
 app.listen(port, function() {
     console.log(`Server is running in port : ${ port }`)
 })
