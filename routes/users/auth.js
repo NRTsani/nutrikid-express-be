@@ -48,4 +48,15 @@ router.post("/login", async (req, res) => {
   }
 });
 
+
+router.get('/doctors', async (req, res) => {
+  try {
+    const doctors = await User.find({ role: 'doctor' });
+    res.json(doctors);
+  } catch (error) {
+    console.error('Error fetching doctors:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 module.exports = router;
