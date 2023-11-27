@@ -49,7 +49,7 @@ exports.createUserValidator = [
   body("role")
     .optional()
     .custom((role, { req }) => {
-      const roles = ["user", "admin"];
+      const roles = ["user", "admin","doctor"];
 
       if (!roles.includes(role)) {
         throw new Error(
@@ -104,7 +104,7 @@ exports.updateUserValidator = [
   body("role")
     .optional()
     .custom((role, { req }) => {
-      const roles = ["user", "admin"];
+      const roles = ["user", "admin", "doctor"];
 
       if (!roles.includes(role)) {
         throw new Error(

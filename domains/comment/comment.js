@@ -4,6 +4,7 @@ const commentSchema = new mongoose.Schema(
   {
     user: {
       type: Object,
+      ref: "User",
       required: [true, "User is required"],
     },
 

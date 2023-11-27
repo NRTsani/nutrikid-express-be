@@ -11,12 +11,11 @@ const bcrypt = require("bcrypt");
 const apiError = require("../../../utils/Error/apiError");
 
 // Configuration for Multer
-// const storage = require("../../../config/cloudinary");
-// const multer = require("multer");
-// const { selectFields } = require("express-validator/src/select-fields");
-// const upload = multer({ storage: storage });
+const storage = require("../../../config/cloudinary");
+const multer = require("multer");
+const upload = multer({ storage: storage });
 
-// exports.uploadProfileImage = upload.single("profile");
+exports.uploadProfileImage = upload.single("profile");
 
 // @desc Create a User
 exports.createUser = handlers.createOne(User);
@@ -36,7 +35,7 @@ exports.updateUser = asyncHandler(async (req, res) => {
   res.status(200).json({ data: user });
 });
 
-// @desc Update Passwoed
+// @desc Update Password
 exports.changeUserPassword = asyncHandler(async (req, res) => {
   const user = await User.findByIdAndUpdate(
     req.user._id,

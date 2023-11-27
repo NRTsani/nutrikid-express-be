@@ -10,7 +10,6 @@ exports.createCategoryValidator = [
     .withMessage("title is not allowed to be empty")
     .custom((title, { req }) => {
       req.body.slug = slugify(title.toLowerCase());
-      req.body.user = req.user._id;
       return true;
     }),
 

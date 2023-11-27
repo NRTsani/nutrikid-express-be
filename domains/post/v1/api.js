@@ -27,7 +27,7 @@ const {
 router.post(
   "/",
   requireSignIn,
-  alowedTo("admin", "user"),
+  alowedTo("admin", "doctor", "user"),
   isBlocked,
   createPostValidator,
   createPost
@@ -38,21 +38,24 @@ router.post(
 router.put(
   "/:id",
   requireSignIn,
-  alowedTo("admin", "user"),
+  alowedTo("admin", "doctor", "user"),
   updatePostValidator,
   updatePost
 );
 
 // @desc get all Post
 // @access Protect
-router.get("/", requireSignIn, alowedTo("admin", "user"), allPosts);
+router.get("/", 
+requireSignIn, 
+alowedTo("admin", "doctor", "user"),
+allPosts);
 
 // @desc get a single Post
 // @access Protect
 router.get(
   "/:id",
   requireSignIn,
-  alowedTo("admin", "user"),
+  alowedTo("admin", "doctor", "user"),
   getPostValidator,
   getPost
 );
@@ -62,7 +65,7 @@ router.get(
 router.delete(
   "/:id",
   requireSignIn,
-  alowedTo("admin", "user"),
+  alowedTo("admin", "doctor", "user"),
   removePostValidator,
   deletePost
 );

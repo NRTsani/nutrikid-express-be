@@ -21,8 +21,8 @@ const { requireSignIn, alowedTo } = require("../../../middlewares/authMiddleware
 // @desc Create Category
 router.post(
   "/",
-  requireSignIn,
-  alowedTo("admin"),
+  // requireSignIn,
+  // alowedTo("admin"),
   createCategoryValidator,
   createCategory
 );
@@ -30,8 +30,8 @@ router.post(
 // @desc Update Category
 router.put(
   "/:id",
-  requireSignIn,
-  alowedTo("admin"),
+  // requireSignIn,
+  // alowedTo("admin"),
   updateCategoryValidator,
   updateCategory
 );
@@ -46,7 +46,7 @@ router.get("/:id", getCategoryValidator, getCategory);
 router.delete(
   "/:id",
   requireSignIn,
-  alowedTo("admin"),
+  alowedTo("admin", "user", "doctor"),
   deleteCategoryValidator,
   deleteCategory
 );
