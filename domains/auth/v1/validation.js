@@ -7,22 +7,22 @@ const apiError = require("../../../utils/Error/apiError");
 exports.signupValidator = [
   body("firstname")
     .notEmpty()
-    .withMessage("firstname is not allowed to be empty")
-    .isLength({ max: 10 })
-    .withMessage(
-      "firstname length must be less than or equal to 10 characters long"
-    )
-    .isLength({ min: 4 })
-    .withMessage("firstname length must be at least 3 characters long"),
+    .withMessage("firstname is not allowed to be empty"),
+  // .isLength({ max: 10 })
+  // .withMessage(
+  //   "firstname length must be less than or equal to 10 characters long"
+  // )
+  // .isLength({ min: 4 })
+  // .withMessage("firstname length must be at least 3 characters long"),
   body("lastname")
     .notEmpty()
-    .withMessage("lastname is not allowed to be empty")
-    .isLength({ max: 10 })
-    .withMessage(
-      "lastname length must be less than or equal to 10 characters long"
-    )
-    .isLength({ min: 4 })
-    .withMessage("lastname length must be at least 3 characters long"),
+    .withMessage("lastname is not allowed to be empty"),
+  // .isLength({ max: 10 })
+  // .withMessage(
+  //   "lastname length must be less than or equal to 10 characters long"
+  // )
+  // .isLength({ min: 4 })
+  // .withMessage("lastname length must be at least 3 characters long"),
   body("email")
     .notEmpty()
     .withMessage("email is not allowed to be empty")
