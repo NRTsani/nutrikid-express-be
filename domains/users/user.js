@@ -17,6 +17,8 @@ const UserSchema = new mongoose.Schema(
 
     image: {
       type: String,
+      default:
+        "https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg",
     },
 
     email: {
@@ -30,8 +32,12 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: [true, "Password is Required"],
     },
+    specialist: {
+      type: String,
+      default: null,
+    },
 
-    isBlocked: {
+    isOnline: {
       type: Boolean,
       default: false,
     },
@@ -42,26 +48,31 @@ const UserSchema = new mongoose.Schema(
       default: "user",
     },
 
-    viewers: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
+    price: {
+      chat: { type: Number, default: 25000 },
+      call: { type: Number, default: 50000 },
+    },
 
-    followers: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
+    // viewers: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "User",
+    //   },
+    // ],
 
-    following: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
+    // followers: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "User",
+    //   },
+    // ],
+
+    // following: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "User",
+    //   },
+    // ],
 
     posts: [
       {
@@ -84,17 +95,17 @@ const UserSchema = new mongoose.Schema(
       },
     ],
 
-    plan: {
-      type: String,
-      enum: ["Free", "Premium", "Pro"],
-      default: "Free",
-    },
+    // plan: {
+    //   type: String,
+    //   enum: ["Free", "Premium", "Pro"],
+    //   default: "Free",
+    // },
 
-    userAward: {
-      type: String,
-      enum: ["Bronze", "Silver", "Gold"],
-      default: "Bronze",
-    },
+    // userAward: {
+    //   type: String,
+    //   enum: ["Bronze", "Silver", "Gold"],
+    //   default: "Bronze",
+    // },
   },
   { toJSON: { virtuals: true } },
   { timestamps: true }
@@ -106,9 +117,9 @@ UserSchema.virtual("fullname").get(function () {
 });
 
 // @desc Get intials
-UserSchema.virtual("intials").get(function () {
-  return `${this.firstname[0]}${this.lastname[0]}`;
-});
+// UserSchema.virtual("intials").get(function () {
+//   return `${this.firstname[0]}${this.lastname[0]}`;
+// });
 
 // @desc Get post counts
 UserSchema.virtual("postCounts").get(function () {
@@ -116,19 +127,19 @@ UserSchema.virtual("postCounts").get(function () {
 });
 
 // @desc get followers count
-UserSchema.virtual("followersCount").get(function () {
-  return this.followers.length;
-});
+// UserSchema.virtual("followersCount").get(function () {
+//   return this.followers.length;
+// });
 
 // @desc get followers count
-UserSchema.virtual("followingCount").get(function () {
-  return this.following.length;
-});
+// UserSchema.virtual("followingCount").get(function () {
+//   return this.following.length;
+// });
 
 //get viewers count
-UserSchema.virtual("viewersCount").get(function () {
-  return this.viewers.length;
-});
+// UserSchema.virtual("viewersCount").get(function () {
+//   return this.viewers.length;
+// });
 
 // @desc get blocked count
 UserSchema.virtual("blockedCount").get(function () {

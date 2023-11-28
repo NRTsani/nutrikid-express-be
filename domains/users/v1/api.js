@@ -3,8 +3,10 @@ const router = express.Router();
 
 const {
   createUser,
+  login,
   updateUser,
   allUsers,
+  getAllDoctor,
   getUser,
   deleteUser,
   profilePhotoUpload,
@@ -22,6 +24,7 @@ const {
 
 const {
   createUserValidator,
+  loginValidator,
   updateUserValidator,
   deleteUserValidator,
   getUserValidator,
@@ -31,7 +34,10 @@ const {
   changeUserPasswordValidator,
 } = require("./validation");
 
-const { requireSignIn, alowedTo } = require("../../../middlewares/authMiddlewares");
+const {
+  requireSignIn,
+  alowedTo,
+} = require("../../../middlewares/authMiddlewares");
 
 // @Desc Create a User
 // @access Private/Admin
@@ -41,6 +47,14 @@ router.post(
   alowedTo("admin", "user", "doctor"),
   createUserValidator,
   createUser
+);
+
+router.post(
+  "/login",
+  requireSignIn,
+  alowedTo("admin", "user", "doctor"),
+  loginValidator,
+  login
 );
 
 // @desc Update Logged User
@@ -85,17 +99,20 @@ router.delete(
 // @desc Get All Users
 router.get("/", allUsers);
 
+// @desc Get All Users role:Doctor
+router.get("/doctors", getAllDoctor);
+
 // @desc Get a Single User
 router.get("/:id", getUserValidator, getUser);
 
 // @desc Uploaded profile image
 // @access Protect
 router.post(
-"/profile-photo-upload",
-requireSignIn,
-alowedTo("user", "admin", "doctor"),
-uploadProfileImage,
-profilePhotoUpload
+  "/profile-photo-upload",
+  requireSignIn,
+  alowedTo("user", "admin", "doctor"),
+  uploadProfileImage,
+  profilePhotoUpload
 );
 
 // @desc Who view my profile

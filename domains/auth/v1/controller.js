@@ -1,4 +1,4 @@
-const User = require('../../users/user')
+const User = require("../../users/user");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const { createToken } = require("../../../utils/Token/generateToken");
@@ -30,7 +30,7 @@ exports.login = asyncHandler(async (req, res, next) => {
   if (!user || !(await bcrypt.compare(req.body.password, user.password))) {
     return next(new apiError("Invalid Password or Email", 401));
   }
-  if (user.isBlocked) {
+  if (user.isOnline) {
     return next(new apiError("Your Account has been disabled", 403));
   }
   //  Create Token

@@ -47,3 +47,14 @@ exports.getAll = (Model) =>
 
     res.status(200).json({ size: document.length, data: document });
   });
+
+exports.getAllDoctor = (Model) =>
+  asyncHandler(async (req, res, next) => {
+    try {
+      const doctors = await Model.find({ role: "doctor" });
+      res.status(200).json(doctors);
+    } catch (error) {
+      console.error("Error fetching doctors:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
