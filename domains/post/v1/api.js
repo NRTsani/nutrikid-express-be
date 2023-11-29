@@ -44,7 +44,7 @@ router.put(
 );
 
 // @desc get all Post
-// @access Protect
+
 router.get("/", 
 // requireSignIn, 
 // alowedTo("admin", "doctor", "user"),
