@@ -46,16 +46,16 @@ router.put(
 // @desc get all Post
 // @access Protect
 router.get("/", 
-requireSignIn, 
-alowedTo("admin", "doctor", "user"),
+// requireSignIn, 
+// alowedTo("admin", "doctor", "user"),
 allPosts);
 
 // @desc get a single Post
 // @access Protect
 router.get(
   "/:id",
-  requireSignIn,
-  alowedTo("admin", "doctor", "user"),
+  // requireSignIn,
+  // alowedTo("admin", "doctor", "user"),
   getPostValidator,
   getPost
 );
