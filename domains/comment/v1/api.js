@@ -23,7 +23,7 @@ const { requireSignIn, alowedTo } = require("../../../middlewares/authMiddleware
 router.post(
   "/",
   requireSignIn,
-  alowedTo("user", "admin"),
+  alowedTo("user", "admin", "doctor"),
   createCommentValidator,
   createComment
 );
@@ -33,7 +33,7 @@ router.post(
 router.put(
   "/:id",
   requireSignIn,
-  alowedTo("user", "admin"),
+  alowedTo("user", "admin", "doctor"),
   updateCommentValidator,
   updateComment
 );
@@ -43,7 +43,7 @@ router.put(
 router.delete(
   "/:id",
   requireSignIn,
-  alowedTo("user", "admin"),
+  alowedTo("user", "admin", "doctor"),
   deleteCommentValidator,
   deleteComment
 );

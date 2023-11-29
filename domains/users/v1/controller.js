@@ -11,15 +11,49 @@ const bcrypt = require("bcrypt");
 const apiError = require("../../../utils/Error/apiError");
 
 // Configuration for Multer
-// const storage = require("../../../config/cloudinary");
-// const multer = require("multer");
-// const { selectFields } = require("express-validator/src/select-fields");
-// const upload = multer({ storage: storage });
+const storage = require("../../../config/cloudinary");
+const multer = require("multer");
+const upload = multer({ storage: storage });
 
-// exports.uploadProfileImage = upload.single("profile");
+exports.uploadProfileImage = upload.single("profile");
 
 // @desc Create a User
 exports.createUser = handlers.createOne(User);
+
+// @desc Create a User
+exports.login = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    // Cari pengguna berdasarkan nama pengguna
+    const user = await User.findOne({ username });
+
+    // Jika pengguna tidak ditemukan
+    if (!user) {
+      return res
+        .status(401)
+        .json({ error: "Nama pengguna atau kata sandi salah" });
+    }
+
+    // Bandingkan kata sandi
+    const passwordMatch = await user.comparePassword(password);
+
+    // Jika kata sandi cocok
+    if (passwordMatch) {
+      // Implementasi pembuatan token JWT
+      const token = generateToken(user);
+
+      // Kirim token sebagai respons
+      res.json({ token });
+    } else {
+      // Jika kata sandi tidak cocok
+      res.status(401).json({ error: "Nama pengguna atau kata sandi salah" });
+    }
+  } catch (error) {
+    console.error("Gagal login:", error.message);
+    res.status(500).json({ error: "Gagal login" });
+  }
+};
 
 // @desc Update a User
 exports.updateUser = asyncHandler(async (req, res) => {
@@ -36,7 +70,7 @@ exports.updateUser = asyncHandler(async (req, res) => {
   res.status(200).json({ data: user });
 });
 
-// @desc Update Passwoed
+// @desc Update Password
 exports.changeUserPassword = asyncHandler(async (req, res) => {
   const user = await User.findByIdAndUpdate(
     req.user._id,
@@ -51,6 +85,9 @@ exports.changeUserPassword = asyncHandler(async (req, res) => {
 
 // @desc Get All Users
 exports.allUsers = handlers.getAll(User);
+
+// @desc Get All Users with role:doctor
+exports.getAllDoctor = handlers.getAllDoctor(User, "doctor");
 
 // @desc get a single user
 exports.getUser = handlers.getOne(User, "user");
@@ -90,7 +127,7 @@ exports.profilePhotoUpload = asyncHandler(async (req, res, next) => {
   }
 
   // Check is user is blocked
-  if (user.isBlocked) {
+  if (user.isOnline) {
     return next(new apiError("Access Blocked!", 403));
   }
 

@@ -49,7 +49,7 @@ exports.createUserValidator = [
   body("role")
     .optional()
     .custom((role, { req }) => {
-      const roles = ["user", "admin"];
+      const roles = ["user", "admin", "doctor"];
 
       if (!roles.includes(role)) {
         throw new Error(
@@ -61,6 +61,11 @@ exports.createUserValidator = [
     }),
 
   validatorResult,
+];
+
+exports.loginValidator = [
+  body("username").notEmpty().withMessage("Username is required"),
+  body("password").notEmpty().withMessage("Password is required"),
 ];
 
 exports.updateUserValidator = [
@@ -104,7 +109,7 @@ exports.updateUserValidator = [
   body("role")
     .optional()
     .custom((role, { req }) => {
-      const roles = ["user", "admin"];
+      const roles = ["user", "admin", "doctor"];
 
       if (!roles.includes(role)) {
         throw new Error(

@@ -3,8 +3,10 @@ const router = express.Router();
 
 const {
   createUser,
+  login,
   updateUser,
   allUsers,
+  getAllDoctor,
   getUser,
   deleteUser,
   profilePhotoUpload,
@@ -22,6 +24,7 @@ const {
 
 const {
   createUserValidator,
+  loginValidator,
   updateUserValidator,
   deleteUserValidator,
   getUserValidator,
@@ -31,16 +34,27 @@ const {
   changeUserPasswordValidator,
 } = require("./validation");
 
-const { requireSignIn, alowedTo } = require("../../../middlewares/authMiddlewares");
+const {
+  requireSignIn,
+  alowedTo,
+} = require("../../../middlewares/authMiddlewares");
 
 // @Desc Create a User
 // @access Private/Admin
 router.post(
   "/",
   requireSignIn,
-  alowedTo("admin"),
+  alowedTo("admin", "user", "doctor"),
   createUserValidator,
   createUser
+);
+
+router.post(
+  "/login",
+  requireSignIn,
+  alowedTo("admin", "user", "doctor"),
+  loginValidator,
+  login
 );
 
 // @desc Update Logged User
@@ -48,7 +62,7 @@ router.post(
 router.put(
   "/",
   requireSignIn,
-  alowedTo("admin", "user"),
+  alowedTo("admin", "user", "doctor"),
   updateUserValidator,
   updateUser
 );
@@ -58,7 +72,7 @@ router.put(
 router.put(
   "/change-password",
   requireSignIn,
-  alowedTo("user", "admin"),
+  alowedTo("user", "admin", "doctor"),
   changeUserPasswordValidator,
   changeUserPassword
 );
@@ -68,7 +82,7 @@ router.put(
 router.delete(
   "/delete-account",
   requireSignIn,
-  alowedTo("user", "admin"),
+  alowedTo("user", "admin", "doctor"),
   deleteAccount
 );
 
@@ -77,7 +91,7 @@ router.delete(
 router.delete(
   "/:id",
   requireSignIn,
-  alowedTo("admin"),
+  alowedTo("admin", "user", "doctor"),
   deleteUserValidator,
   deleteUser
 );
@@ -85,18 +99,21 @@ router.delete(
 // @desc Get All Users
 router.get("/", allUsers);
 
+// @desc Get All Users role:Doctor
+router.get("/doctors", getAllDoctor);
+
 // @desc Get a Single User
 router.get("/:id", getUserValidator, getUser);
 
 // @desc Uploaded profile image
 // @access Protect
-// router.post(
-//   "/profile-photo-upload",
-//   requireSignIn,
-//   alowedTo("user", "admin"),
-//   uploadProfileImage,
-//   profilePhotoUpload
-// );
+router.post(
+  "/profile-photo-upload",
+  requireSignIn,
+  alowedTo("user", "admin", "doctor"),
+  uploadProfileImage,
+  profilePhotoUpload
+);
 
 // @desc Who view my profile
 // @access Protect
