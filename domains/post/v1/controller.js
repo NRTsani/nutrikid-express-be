@@ -49,7 +49,7 @@ exports.allPosts = asyncHandler(async (req, res) => {
     return !item.author.blocked.includes(req.user._id);
   });
 
-  res.status(200).json({ size: posts.length, data: posts });
+  res.status(200).json(posts);
 });
 
 // @desc Get a single post
