@@ -2,14 +2,21 @@ const bluebird = require('bluebird');
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const port = 5001
+
+
+//
+const apiError = require("./utils/Error/apiError");
+const { globalErrHandler } = require("./utils/Error/globalErrHandle");
+
+// access environment variables
 require('dotenv').config();
 
-// import libraries
+// import utils
 const respond = require('./libraries/respond');
 const logger = require('./libraries/logger');
 
 // import API Routes
+const eventApiV1 = require('./domains/event/v1/api');
 
 // db start & configs
 try {
@@ -47,12 +54,32 @@ try {
     throw err;
 }
 
-// app
+// app middleware
 const app = express();
-app.use(express.static('public'));
-app.use(express.json());
+// app.use(express.static('public'));
+
 app.use(express.urlencoded({extended: false}));
 app.use(cors());
+
+//Set Routes
+const userRouters = require("./domains/users/v1/api");
+const authRouters = require("./domains/auth/v1/api");
+const categoryRouters = require("./domains/category/v1/api");
+const postRouters = require("./domains/post/v1/api");
+const commentRouters = require("./domains/comment/v1/api")
+const eventRouters = require("./domains/event/v1/api")
+const programRouters = require("./domains/program/v1/api")
+const lessonRouters = require("./domains/lessons/v1/api")
+
+// Use Routes
+app.use("/api/users", userRouters);
+app.use("/api/auth", authRouters);
+app.use("/api/categories", categoryRouters);
+app.use("/api/posts", postRouters);
+app.use("/api/comments", commentRouters);
+app.use("/api/events", eventRouters);
+app.use("/api/programs", programRouters);
+app.use("/api/lesson", lessonRouters);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -70,7 +97,7 @@ app.use(function (err, req, res, next) {
 module.exports = app;
 
 // listen
-
+const port = process.env.PORT
 app.listen(port, function() {
     console.log(`Server is running in port : ${ port }`)
 })
