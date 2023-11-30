@@ -71,9 +71,6 @@ const programRouters = require("./domains/program/v1/api");
 const lessonRouters = require("./domains/lessons/v1/api");
 
 // Use Routes
-app.use("/", (req, res) => {
-  res.send("welcome to the nutrikid server");
-});
 app.use("/api/users", userRouters);
 app.use("/api/auth", authRouters);
 app.use("/api/categories", categoryRouters);
