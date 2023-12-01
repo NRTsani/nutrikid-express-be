@@ -49,7 +49,7 @@ The application will be available at: `http://localhost:3001`
 ####4. Comment </br>
    -CRUD comments </br>
 ####5. Category </br>
-   -CRUD categoryT` </br>
+   -CRUD category </br>
 ####6. Program </br>
    -CRUD program </br>
 ####7. Event </br>
