@@ -11,7 +11,7 @@ Todo List API Services using Express JS and MongoDB
 
 ### Cloning this repo
 ```cmd
-> git clone 
+> git clone https://github.com/NRTsani/nutrikid-express-be.git
 > cd nutrikid-backend
 ```
 
