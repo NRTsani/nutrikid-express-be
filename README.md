@@ -17,9 +17,13 @@ Todo List API Services using Express JS and MongoDB
 
 ### Editing the file
 Edit the required value in .env file </br>
-`PORT`: PORT localhost. </br>
-`MONG_URl`: your MongoDb URI. </br>
-`JWT_TOKEN`: your secret key.</br>
+PORT= 3001 </br>
+NODE_ENV='localhost' </br>
+MONGODB_CONNECTION_STRING= filled with your mongo db url </br>
+JWT_SECRET= filled with your jwt secret key </br>
+CLOUDINARY_CLOUD_NAME= filled with cloudinary cloud name </br>
+CLOUDINARY_API_KEY= filled with your cloudinary API key </br>
+CLOUDINARY_API_SECRET_KEY= filled with your clodinary API secret key </br>
 
 ### Installing the dependencies
 ```cmd
