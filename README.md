@@ -1,69 +1,86 @@
-# Nutrikid Back End
-Todo List API Services using Express JS and MongoDB
+# Nutrikid Backend
+
+Nutrikid is a web application platform designed to provide information and education about nutrition, specifically targeted toward pregnant and breastfeeding mothers, children, infants, and toddlers. The application aims to support parents, caregivers, and the broader Indonesian community in meeting the nutritional needs of their children to prevent and reduce stunting. It also seeks to promote a deeper understanding of the importance of proper nutrition during pregnancy and early childhood development.
+
+## Features
+
+- **User Registration and Login**: Users can create an account and log in to access the full features of the platform.
+
+- **Article Access**: Users can browse and search for articles related to nutrition and parenting, and read them directly through the website.
+
+- **Online Consultation**: After making a payment, users can consult with doctors via chat or call, helping them get expert advice tailored to their needs.
+
+- **Educational Programs**: Users can join both free and paid programs, which include modules and lessons designed to enhance their understanding of nutrition and parenting.
+
+- **Events Participation**: Logged-in users can register for online events, which are conducted through Zoom and often include interactive sessions.
+
+- **Doctor Directory**: The platform enables users to find and connect with professional doctors specializing in nutrition and child development.
+
+## Tech Stack
+
+- **Frontend**: React Vite, Bootstrap
+- **Backend**: MongoDB, Express js, Node js
 
 ## Installation and Setup Instructions
 
 ### Prequisites
+
 1. Git
 2. Node.js
 3. NPM
 4. MongoDB
 
 ### Cloning this repo
-```cmd
+
+```bash
 > git clone https://github.com/NRTsani/nutrikid-express-be.git
-> cd nutrikid-backend
+> cd nutrikid-express-be
 ```
 
-### Editing the file
-Edit the required value in .env file </br>
-PORT= 3001 </br>
-NODE_ENV='localhost' </br>
-MONGODB_CONNECTION_STRING= filled with your mongo db url </br>
-JWT_SECRET= filled with your jwt secret key </br>
-CLOUDINARY_CLOUD_NAME= filled with cloudinary cloud name </br>
-CLOUDINARY_API_KEY= filled with your cloudinary API key </br>
-CLOUDINARY_API_SECRET_KEY= filled with your clodinary API secret key </br>
-
 ### Installing the dependencies
-```cmd
+
+```bash
 > npm install
 ```
 
+### Setup Environment
+
+Setup your `.env` file in the root of your project and add the following content:
+
+```bash
+PORT= 3001
+NODE_ENV='localhost'
+MONGODB_CONNECTION_STRING=
+JWT_SECRET=
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET_KEY=
+```
+
 ### Running App
-```cmd
+
+```bash
 > npm run dev
 ```
-The application will be available at: `http://localhost:3001`
 
-## Domain Services
+The application will be run at: `http://localhost:3001`
 
-### Task
-####1. Auth </br>
-   -Login </br>
-   -Register/SignUp </br>
-####2. User </br>
-   -CRUD user </br>
-####3. Post </br>
-   -CRUD post </br>
-####4. Comment </br>
-   -CRUD comments </br>
-####5. Category </br>
-   -CRUD category </br>
-####6. Program </br>
-   -CRUD program </br>
-####7. Event </br>
-    -CRUD program </br>
-    
-## Demo App
-Link: 
-https://nutrikid-express-be-production.up.railway.app
+## Live Demo App
+
+[Click here](https://nutrikid-v1.netlify.app/) to visit the live site and test out the features yourself.
 
 ## API Documentation
-Link API documentation on postman: 
-https://documenter.getpostman.com/view/13684114/2s9YeHbBf5
+
+For detailed API endpoints and usage, refer to the Postman documentation [Click Here](https://documenter.getpostman.com/view/13684114/2s9YeHbBf5)
+
+## Frontend Repository
+
+To access frontend repository of the web application, [click here](https://github.com/petrabayu/nutrikid-react-fullstack.git).
 
 ## Author
-- [Naufal Rafi Tsani P A]
-- [Nurul Husna]
-- [Petra Bayu Pangestu]
+
+### By Kelompok 3 - Youth Digital Acceleration Skilvul x YCAB
+
+- [Naufal Rafi Tsani P A](https://github.com/NRTsani)
+- [Nurul Husna](https://github.com/hushus23)
+- [Petra Bayu Pangestu](https://github.com/petrabayu)
